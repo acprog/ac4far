@@ -47,28 +47,28 @@ public:
       if (acf->isIntMap()) {
         for (auto i : acf->asIntMap()) {
           std::wstringstream item_name;
-          item_name<<"{"<<i.first<<"}";
+          item_name<<i.first;
           items.push_back(new AcfItem(defitem, this, item_name.str(), i.second));
         }
       }
       if (acf->isStrMap()) {
         for (auto i : acf->asStrMap()) {
           std::wstringstream item_name;
-          item_name<<"{"<<i.first<<"}";
+          item_name<<i.first;
           items.push_back(new AcfItem(defitem, this, item_name.str(), i.second));
         }
       }
       if (acf->isPos2Map()) {
         for (auto i : acf->asPos2Map()) {
           std::wstringstream item_name;
-          item_name<<"{"<<i.first.x<<", "<<i.first.y<<"}";
+          item_name<<"("<<i.first.x<<", "<<i.first.y<<")";
           items.push_back(new AcfItem(defitem, this, item_name.str(), i.second));
         }
       }
       if (acf->isPos3Map()) {
         for (auto i : acf->asPos3Map()) {
           std::wstringstream item_name;
-          item_name<<"{"<<i.first.x<<", "<<i.first.y<<", "<<i.first.z<<"}";
+          item_name<<"("<<i.first.x<<", "<<i.first.y<<", "<<i.first.z<<")";
           items.push_back(new AcfItem(defitem, this, item_name.str(), i.second));
         }
       }
@@ -129,13 +129,13 @@ public:
     } else if (acf->isMap()) {
       desc<<"{}";
     } else if (acf->isIntMap()) {
-      desc<<"{int, .."<<acf->asIntMap().Num()<<"}";
+      desc<<"{int: .."<<acf->asIntMap().Num()<<"}";
     } else if (acf->isStrMap()) {
-      desc<<"{str, .."<<acf->asStrMap().Num()<<"}";
+      desc<<"{str: .."<<acf->asStrMap().Num()<<"}";
     } else if (acf->isPos2Map()) {
-      desc<<"{pos2, .."<<acf->asPos2Map().Num()<<"}";
+      desc<<"{pos2: .."<<acf->asPos2Map().Num()<<"}";
     } else if (acf->isPos3Map()) {
-      desc<<"{pos3, .."<<acf->asPos3Map().Num()<<"}";
+      desc<<"{pos3: .."<<acf->asPos3Map().Num()<<"}";
     }
     
     return desc.str();
