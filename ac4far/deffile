@@ -1,0 +1,18 @@
+LIBRARY
+EXPORTS   
+	GetGlobalInfoW
+	SetStartupInfoW
+	GetPluginInfoW
+	OpenW
+	ExitFARW
+	AnalyseW
+	CloseAnalyseW
+	ClosePanelW
+	GetOpenPanelInfoW
+	DeleteFilesW
+	SetDirectoryW
+	GetFilesW
+	PutFilesW
+	GetFindDataW
+	FreeFindDataW
+	MakeDirectoryW
