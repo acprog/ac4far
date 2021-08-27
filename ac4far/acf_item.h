@@ -117,8 +117,10 @@ public:
       GeoPos pos(*acf);
       desc<<"GeoPos("<<pos.latitude<<", "<<pos.longitude<<", "<<pos.elevation<<")";
     } else if (acf->isStrSet()) {
+      desc << "{";
       for (auto &i : acf->asStrSet())
         desc<<"\""<<i<<"\", ";
+      desc << "}";
     } else if (acf->isBytes()) {
       for (auto i : acf->asBytes())
         desc<< "0x" << std::uppercase << std::setfill(L'0') << std::setw(4) << std::hex << i << ", ";
@@ -133,7 +135,7 @@ public:
     } else if (acf->isPos2Map()) {
       desc<<"{pos2, .."<<acf->asPos2Map().Num()<<"}";
     } else if (acf->isPos3Map()) {
-      desc<<"{pos3, .."<<acf->asPos2Map().Num()<<"}";
+      desc<<"{pos3, .."<<acf->asPos3Map().Num()<<"}";
     }
     
     return desc.str();

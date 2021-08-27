@@ -482,7 +482,7 @@ public:
   }
 
 private:
-  void writeChar(std::ostream &file, char value);
+  void writeChar(std::ostream &file, BYTE value);
   void writeInt(std::ostream &file, long long value);
   void writeString(std::ostream &file, const FString &value);
   void writeKey(std::ostream &file, const FString &key, TMap<FString, int> &keys);
@@ -490,7 +490,7 @@ private:
   void writeDouble(std::ostream &file, double value);
   void writeBytes(std::ostream &file, const TArray<BYTE> &value);
 
-  char readChar(std::istream &file);
+  BYTE readChar(std::istream &file);
   long long readInt(std::istream &file);
   float readFloat(std::istream &file);
   double readDouble(std::istream &file);

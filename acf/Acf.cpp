@@ -288,7 +288,7 @@ static long long bytes2mark(int bytes) {
 }
 
 //====================================================================================================
-void Acf::writeChar(std::ostream &file, char value) {
+void Acf::writeChar(std::ostream &file, BYTE value) {
   file<<value;
 }
 
@@ -591,7 +591,7 @@ void Acf::load(std::istream &file, int version, TMap<int, FString> &keys) {
 }
 
 //====================================================================================================
-char Acf::readChar(std::istream &file) {
+BYTE Acf::readChar(std::istream &file) {
   char byte=0;
   file.read(&byte, 1);
   return byte;
