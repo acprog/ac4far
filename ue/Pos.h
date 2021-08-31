@@ -1,5 +1,6 @@
 ﻿// AC4FAR (c) Alexander Semenov 2020-2021
 #pragma once
+#include <tuple>
 
 struct Pos2D {
   int x, y;
@@ -11,7 +12,7 @@ struct Pos2D {
 };
 
 inline bool operator<(const Pos2D &a, const Pos2D &b) {
-  return a.x * a.y < b.x *b.y;
+  return std::tuple<int, int>(a.x, a.y) < std::tuple<int, int>(b.x, b.y);
 }
 
 
@@ -28,7 +29,7 @@ struct CagePos : Pos3D {
 };
 
 inline bool operator<(const Pos3D &a, const Pos3D &b) {
-  return a.x * a.y * a.z < b.x *b.y *b.z;
+  return std::tuple<int, int, int>(a.x, a.y, a.z) < std::tuple<int, int, int>(b.x, b.y, b.z);
 }
 
 struct GeoPos {
