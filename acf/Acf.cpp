@@ -541,7 +541,9 @@ void Acf::load(std::istream &file, int version, TMap<int, FString> &keys) {
   case BIN_POS2_MAP_START:
     type=POS2_MAP;
     while (file.peek()!=BIN_END) {
-      Pos2D key(readInt(file), readInt(file));
+      int x = readInt(file);
+      int y= readInt(file);
+      Pos2D key(x, y);
       pos2_map.Add(key, new Acf(file, version, keys));
       if (file.eof())
         throw AcfException();
@@ -552,7 +554,10 @@ void Acf::load(std::istream &file, int version, TMap<int, FString> &keys) {
   case BIN_POS3_MAP_START:
     type=POS3_MAP;
     while (file.peek()!=BIN_END) {
-      Pos3D key(readInt(file), readInt(file), readInt(file));
+      int x = readInt(file);
+      int y= readInt(file);
+      int z= readInt(file);
+      Pos3D key(x, y, z);
       pos3_map.Add(key, new Acf(file, version, keys));
       if (file.eof())
         throw AcfException();
