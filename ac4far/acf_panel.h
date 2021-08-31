@@ -35,7 +35,7 @@ public:
       folder = item;
       cur_dir += L"/";
       cur_dir += folder->name;
-      title = L"ACF:" + container.file_name+cur_dir;
+        title = L"ACF:" + container.file_name+cur_dir;
       return true;
     }
    
@@ -45,9 +45,10 @@ public:
       return true;
     }
 
-    cur_dir[cur_dir.length() - folder->name.length() - 1] = L'\0';
+    cur_dir.erase(cur_dir.length() - folder->name.length()-1, folder->name.length()+1);
+//    cur_dir[cur_dir.length() - folder->name.length() - 1] = L'\0';
     folder=folder->parent;
-    title = L"ACF:" + container.file_name;
+    title = L"ACF:" + container.file_name+cur_dir;
     return true;
   }
 };
