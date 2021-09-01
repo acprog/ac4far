@@ -21,7 +21,8 @@ private:
     STRING,
     FVECTOR,
     FROTATOR,
-    CAGE_POS,
+    POS_2D,
+    POS_3D,
     GEO_POS,
     ARRAY,
     EMPTY_MAP,
@@ -100,8 +101,13 @@ public:
   }
 
   //====================================================================================================
-  inline bool isCagePos() const {
-    return type == CAGE_POS;
+  inline bool isPos2D() const {
+    return type == POS_2D;
+  }
+
+  //====================================================================================================
+  inline bool isPos3D() const {
+    return type == POS_3D;
   }
 
   //====================================================================================================
@@ -201,9 +207,15 @@ public:
   }
 
   //====================================================================================================
-  inline operator CagePos &() {
-    check(type == CAGE_POS);
-    return ac_cage_pos;
+  inline operator Pos2D &() {
+    check(type == POS_2D);
+    return ac_pos2d;
+  }
+
+  //====================================================================================================
+  inline operator Pos3D &() {
+    check(type == POS_3D);
+    return ac_pos3d;
   }
 
   //====================================================================================================
@@ -404,10 +416,18 @@ public:
   }
 
   //====================================================================================================
-  inline Acf &operator=(const CagePos &value) {
-    check(type == NONE || type == CAGE_POS);
-    type = CAGE_POS;
-    ac_cage_pos = value;
+  inline Acf &operator=(const Pos2D &value) {
+    check(type == NONE || type == POS_2D);
+    type = POS_2D;
+    ac_pos2d = value;
+    return *this;
+  }
+
+  //====================================================================================================
+  inline Acf &operator=(const Pos3D &value) {
+    check(type == NONE || type == POS_3D);
+    type = POS_3D;
+    ac_pos3d = value;
     return *this;
   }
 
@@ -506,7 +526,8 @@ private:
   FString             ac_str;
   FVector             ac_fvector;
   FRotator            ac_frotator;
-  CagePos             ac_cage_pos;
+  Pos2D               ac_pos2d;
+  Pos3D               ac_pos3d;
   GeoPos              ac_geo_pos;
   TArray<Acf*>        array;
   TMap<FString, Acf*> str_map;

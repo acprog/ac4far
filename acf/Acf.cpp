@@ -84,7 +84,8 @@ void Acf::empty() {
   ac_str="";
   ac_fvector=FVector(0, 0, 0);
   ac_frotator=FRotator(0, 0, 0);
-  ac_cage_pos=CagePos();
+  ac_pos2d=Pos2D();
+  ac_pos3d=Pos3D();
   ac_geo_pos=GeoPos();
 
   for (auto i : array)
@@ -123,7 +124,8 @@ enum BinaryTypes {
   BIN_DOUBLE,
   BIN_FVECTOR,
   BIN_FROTATOR,
-  BIN_CAGE_POS,
+  BIN_POS2,
+  BIN_POS3,
   BIN_GEO_POS,
   BIN_EMPTY_MAP,
   BIN_EMPTY_SET,
@@ -199,13 +201,19 @@ void Acf::save(std::ostream &file, TMap<FString, int> &keys) {
       writeFloat(file, ac_frotator.Yaw);
       break;
 
-    case CAGE_POS:
-      writeChar(file, BIN_CAGE_POS);
-      writeInt(file, ac_cage_pos.x);
-      writeInt(file, ac_cage_pos.y);
-      writeInt(file, ac_cage_pos.z);
+    case POS_2D:
+      writeChar(file, BIN_POS2);
+      writeInt(file, ac_pos2d.x);
+      writeInt(file, ac_pos2d.y);
       break;
-  
+
+    case POS_3D:
+      writeChar(file, BIN_POS3);
+      writeInt(file, ac_pos3d.x);
+      writeInt(file, ac_pos3d.y);
+      writeInt(file, ac_pos3d.z);
+      break;
+
     case GEO_POS:
       writeChar(file, BIN_GEO_POS);
       writeDouble(file, ac_geo_pos.latitude);
@@ -484,11 +492,17 @@ void Acf::load(std::istream &file, int version, TMap<int, FString> &keys) {
     ac_frotator.Yaw=readFloat(file);
     break;
 
-  case BIN_CAGE_POS:
-    type=CAGE_POS;
-    ac_cage_pos.x=readInt(file);
-    ac_cage_pos.y=readInt(file);
-    ac_cage_pos.z=readInt(file);
+  case BIN_POS2:
+    type=POS_2D;
+    ac_pos2d.x=readInt(file);
+    ac_pos2d.y=readInt(file);
+    break;
+
+  case BIN_POS3:
+    type=POS_3D;
+    ac_pos3d.x=readInt(file);
+    ac_pos3d.y=readInt(file);
+    ac_pos3d.z=readInt(file);
     break;
 
   case BIN_GEO_POS:

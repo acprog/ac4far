@@ -61,14 +61,14 @@ public:
       if (acf->isPos2Map()) {
         for (auto i : acf->asPos2Map()) {
           std::wstringstream item_name;
-          item_name<<"("<<i.first.x<<", "<<i.first.y<<")";
+          item_name<<"Pos2D("<<i.first.x<<", "<<i.first.y<<")";
           items.push_back(new AcfItem(defitem, this, item_name.str(), i.second));
         }
       }
       if (acf->isPos3Map()) {
         for (auto i : acf->asPos3Map()) {
           std::wstringstream item_name;
-          item_name<<"("<<i.first.x<<", "<<i.first.y<<", "<<i.first.z<<")";
+          item_name<<"Pos3D("<<i.first.x<<", "<<i.first.y<<", "<<i.first.z<<")";
           items.push_back(new AcfItem(defitem, this, item_name.str(), i.second));
         }
       }
@@ -110,9 +110,12 @@ public:
     } else if (acf->isFRotator()) {
       FRotator r(*acf);
       desc<<"FRotator("<<r.Roll<<", "<<r.Pitch<<", "<<r.Yaw<<")";
-    } else if (acf->isCagePos()) {
-      CagePos pos(*acf);
-      desc<<"CagePos("<<pos.x<<", "<<pos.y<<", "<<pos.z<<")";
+    } else if (acf->isPos2D()) {
+      Pos2D pos(*acf);
+      desc<<"Pos2D("<<pos.x<<", "<<pos.y<<")";
+    } else if (acf->isPos3D()) {
+      Pos3D pos(*acf);
+      desc<<"Pos3D("<<pos.x<<", "<<pos.y<<", "<<pos.z<<")";
     } else if (acf->isGeoPos()) {
       GeoPos pos(*acf);
       desc<<"GeoPos("<<pos.latitude<<", "<<pos.longitude<<", "<<pos.elevation<<")";
