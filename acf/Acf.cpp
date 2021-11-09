@@ -23,6 +23,7 @@ Acf::operator bool() const {
     case EMPTY_SET: return false;
     case STR_SET:   return str_set.Num()!=0;
     case BYTES:     return bytes.Num() != 0;
+    case INT_SET:   return int_set.Num()!=0;
   }
   return true;
 }
@@ -138,6 +139,7 @@ enum BinaryTypes {
   BIN_END,
   BIN_STRING, // начиная с этого все поля имеют длинну
   BIN_BYTES,
+  BIN_INT_SET_START, // !нет длинны
   BIN_COUNT,  
 };
 
@@ -279,6 +281,13 @@ void Acf::save(std::ostream &file, TMap<FString, int> &keys) {
       writeChar(file, BIN_STR_SET_START);
       for (auto &str : str_set)
         writeKey(file, str, keys);
+      writeChar(file, BIN_END);
+      break;
+
+    case INT_SET:
+      writeChar(file, BIN_INT_SET_START);
+      for (auto i : int_set)
+        writeInt(file, i);
       writeChar(file, BIN_END);
       break;
 
@@ -584,6 +593,16 @@ void Acf::load(std::istream &file, int version, TMap<int, FString> &keys) {
     while (file.peek()!=BIN_END) {
       auto key=readKey(file, keys);
       str_set.Add(key);
+      if (file.eof())
+        throw AcfException();
+    }
+    check(readChar(file)==BIN_END);
+    break;
+
+  case BIN_INT_SET_START:
+    type=INT_SET;
+    while (file.peek()!=BIN_END) {
+      int_set.Add(readInt(file));
       if (file.eof())
         throw AcfException();
     }

@@ -1,7 +1,6 @@
 // Solargene (c) Alexander Semenov 2020-2021
 #pragma once
 #include <CoreMinimal.h>
-#include <Config.h>
 #include <pos.h>
 #include <fstream>
 
@@ -33,6 +32,7 @@ private:
     EMPTY_SET,
     STR_SET,
     BYTES,
+    INT_SET,
   };
 
 public:
@@ -151,6 +151,11 @@ public:
   }
 
   //====================================================================================================
+  inline bool isIntSet() const {
+    return type == EMPTY_SET || type==INT_SET;
+  }
+
+  //====================================================================================================
   inline bool isBytes() const {
     return type == BYTES;
   }
@@ -171,7 +176,7 @@ public:
   }
 
   //====================================================================================================
-  inline operator Uid() const {
+  inline operator unsigned long long() const {
     check(type == INT);
     return ac_int;
   }
@@ -307,6 +312,14 @@ public:
   }
 
   //====================================================================================================
+  inline TSet<int> &asIntSet(){
+    if (type == NONE)
+      type = INT_SET;
+    check(type == INT_SET);
+    return int_set;
+  }
+
+  //====================================================================================================
   inline TArray<BYTE> &asBytes() {
     if (type == NONE)
       type = BYTES;
@@ -359,14 +372,13 @@ public:
   }
   /*
   //====================================================================================================
-  inline Acf &operator=(Uid value) {
+  inline Acf &operator=(unsigned long long value) {
     check(type == NONE || type == INT);
     type = INT;
     ac_int = value;
     return *this;
   }
   */
-
   //====================================================================================================
   inline Acf &operator=(float value) {
     check(type == NONE || type == FLOAT);
@@ -444,6 +456,14 @@ public:
     empty();
     type = STR_SET;
     str_set = value;
+    return *this;
+  }
+
+  //====================================================================================================
+  inline Acf &operator=(const TSet<int> &value) {
+    empty();
+    type = INT_SET;
+    int_set = value;
     return *this;
   }
 
@@ -536,5 +556,6 @@ private:
   TMap<Pos3D, Acf*>   pos3_map;
   TSet<FString>       str_set;
   TArray<BYTE>        bytes;
+  TSet<int>           int_set;
 };
 

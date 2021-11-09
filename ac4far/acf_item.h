@@ -124,6 +124,11 @@ public:
       for (auto &i : acf->asStrSet())
         desc<<"\""<<i<<"\", ";
       desc << "}";
+    } else if (acf->isIntSet()) {
+      desc << "{";
+      for (auto i : acf->asIntSet())
+        desc<<""<<i<<", ";
+      desc << "}";
     } else if (acf->isBytes()) {
       for (auto i : acf->asBytes())
         desc<< "0x" << std::uppercase << std::setfill(L'0') << std::setw(4) << std::hex << i << ", ";
